@@ -46,7 +46,7 @@ function Location(city, geoData) {
 let arrOfResult = [];
 //The constructor function of the Weather
 function Weather(city,skyData){
-  skyData.data.forEach((val,i){
+  skyData.data.forEach((val,i) => {
     this.forecast=skyData.data[i].weather.description;
     this.time=skyData.data[i].valid_date;
     arrOfResult.push(this);
