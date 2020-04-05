@@ -43,10 +43,15 @@ function Location(city, geoData) {
   this.latitude = geoData[0].lat;
   this.longitude = geoData[0].lon;
 }
+let arrOfResult = [];
 //The constructor function of the Weather
 function Weather(city,skyData){
-  this.forecast=skyData.data[0].weather.description;
-  this.time=skyData.data[0].valid_date;
+  skyData.data.forEach((val,i){
+    this.forecast=skyData.data[i].weather.description;
+    this.time=skyData.data[i].valid_date;
+    arrOfResult.push(this);
+  });
+  return arrOfResult;
 }
 // HELPER FUNCTIONS
 function notFoundHandler(request, response) {
