@@ -13,9 +13,9 @@ app.use(cors());
 app.get('/', (request, response) => {
   response.status(200).send('It Works!');
 });
-app.get('/bad', (request, response) => {
-  throw new Error('oh nooooo!');
-});
+// app.get('/bad', (request, response) => {
+//   throw new Error('oh nooooo!');
+// });
 
 app.get('/location', (request, response) => {
   try {
@@ -27,12 +27,15 @@ app.get('/location', (request, response) => {
     errorHandler(error, request, response);
   }
 });
-
+let arrOfResult = [];
 app.get('/weather',(req,res)=>{
   const skyData = require('./data/darksky.json');
   const city = req.query.city;
-  const weatherData = new Weather(city,skyData);
-  res.send(weatherData);
+  skyData.data.forEach((val) => {
+    const weatherData = new Weather(city,val);
+    arrOfResult.push(weatherData);
+  });
+  res.send(arrOfResult);
 });
 
 app.use('*', notFoundHandler);
@@ -43,15 +46,10 @@ function Location(city, geoData) {
   this.latitude = geoData[0].lat;
   this.longitude = geoData[0].lon;
 }
-let arrOfResult = [];
 //The constructor function of the Weather
-function Weather(city,skyData){
-  skyData.data.forEach((val,i) => {
-    this.forecast=skyData.data[i].weather.description;
-    this.time=skyData.data[i].valid_date;
-    arrOfResult.push(this);
-  });
-  return arrOfResult;
+function Weather(city,val){
+  this.forecast=val.weather.description;
+  this.time=val.valid_date;
 }
 // HELPER FUNCTIONS
 function notFoundHandler(request, response) {
