@@ -46,7 +46,7 @@ function Location(city, geoData) {
 //The constructor function of the Weather
 function Weather(city,skyData){
   this.forecast=skyData.data[0].weather.description;
-  this.time=skyData.data[0].datetime;
+  this.time=skyData.data[0].valid_date;
 }
 // HELPER FUNCTIONS
 function notFoundHandler(request, response) {
