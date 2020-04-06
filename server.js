@@ -49,7 +49,7 @@ function Location(city, geoData) {
 //The constructor function of the Weather
 function Weather(city,val){
   this.forecast=val.weather.description;
-  this.time=val.valid_date;
+  this.time= new Date (val.valid_date).toString().slice(0,15);
 }
 // HELPER FUNCTIONS
 function notFoundHandler(request, response) {
@@ -60,22 +60,3 @@ function errorHandler(error, request, response) {
 }
 // Make sure the server is listening for requests
 app.listen(PORT, () => console.log(`the server is up and running on ${PORT}`));
-
-// function formatDate(date) {
-//   var d = new Date(date),
-//     month = '' + (d.getMonth() + 1),
-//     day = '' + d.getDate(),
-//     year = d.getFullYear();
-
-//   if (month.length < 2)
-//     month = '0' + month;
-//   if (day.length < 2)
-//     day = '0' + day;
-
-//   return [month, day, year].join('-');
-// }
-
-// let str2 = '2020-04-04';
-// var b2 = str2.split('-');
-// var date2 = Date.parse(b2);
-// console.log(date2);
